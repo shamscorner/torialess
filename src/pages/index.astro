@@ -1,5 +1,271 @@
 ---
 import Layout from "@/layouts/layout.astro";
+import { productInfo } from "@/constants";
+
+const { name, title, description, keywords, socials } = productInfo;
+
+const tools = [
+  {
+    name: "SVG preview",
+    description:
+      "Render and validate SVGs instantly with precise sizing and clean exports.",
+    href: "/svg-preview",
+    status: "available",
+  },
+  {
+    name: "Focused todos",
+    description:
+      "Keep steps short and actionable with a tidy, distraction-free checklist.",
+    href: "/focused-todos",
+    status: "available",
+  },
+  {
+    name: "Aweshots",
+    description:
+      "Capture sharp frames that look consistent across your entire tutorial.",
+    href: null,
+    status: "coming-soon",
+  },
+] as const;
 ---
 
-<Layout> Welcome! </Layout>
+<Layout title={title} description={description} keywords={keywords}>
+  <main class="bg-white text-slate-900">
+    <section class="mx-auto w-full max-w-6xl px-6 pb-16 pt-20 sm:pt-24">
+      <div class="grid gap-10 lg:grid-cols-2 lg:items-center">
+        <div class="space-y-6">
+          <p
+            class="text-sm font-semibold uppercase tracking-[0.2em] text-slate-500"
+          >
+            {name}
+          </p>
+          <h1
+            class="text-4xl font-semibold tracking-tight text-slate-900 sm:text-5xl"
+          >
+            {title}
+          </h1>
+          <p class="text-base leading-7 text-slate-600 sm:text-lg">
+            {description}
+          </p>
+          <div class="flex flex-col gap-3 sm:flex-row">
+            <a
+              class="inline-flex items-center justify-center rounded-full bg-slate-900 px-6 py-3 text-sm font-semibold text-white transition hover:bg-slate-800"
+              href="#tools"
+            >
+              Explore tools
+            </a>
+            <a
+              class="inline-flex items-center justify-center rounded-full border border-slate-200 px-6 py-3 text-sm font-semibold text-slate-700 transition hover:border-slate-300 hover:text-slate-900"
+              href={socials.youtube}
+              target="_blank"
+              rel="noopener"
+            >
+              Watch demos
+            </a>
+          </div>
+          <div
+            class="flex flex-wrap gap-4 text-xs font-semibold uppercase tracking-[0.2em] text-slate-400"
+          >
+            {
+              tools.map((tool) =>
+                tool.status === "available" && tool.href ? (
+                  <a href={tool.href} class="transition hover:text-slate-600">
+                    {tool.name}
+                  </a>
+                ) : (
+                  <span class="text-slate-300">{tool.name} · coming soon</span>
+                ),
+              )
+            }
+            <p class="text-gray-300">
+              More tools are in development right now...
+            </p>
+          </div>
+        </div>
+        <div
+          class="rounded-3xl border border-slate-100 bg-slate-50 p-8 shadow-sm"
+        >
+          <div class="space-y-6">
+            <div class="space-y-2">
+              <p
+                class="text-xs font-semibold uppercase tracking-[0.2em] text-slate-400"
+              >
+                What you get
+              </p>
+              <h2 class="text-2xl font-semibold text-slate-900">
+                A calm workspace for building tutorials
+              </h2>
+            </div>
+            <ul class="space-y-4 text-sm text-slate-600">
+              <li class="flex items-start gap-3">
+                <span class="mt-1 h-2 w-2 rounded-full bg-slate-900"></span>
+                Capture clean, consistent visuals in seconds.
+              </li>
+              <li class="flex items-start gap-3">
+                <span class="mt-1 h-2 w-2 rounded-full bg-slate-900"></span>
+                Keep every step focused, readable, and reusable.
+              </li>
+              <li class="flex items-start gap-3">
+                <span class="mt-1 h-2 w-2 rounded-full bg-slate-900"></span>
+                Produce polished tutorials without manual cleanup.
+              </li>
+            </ul>
+            <div class="rounded-2xl border border-slate-200 bg-white p-5">
+              <p
+                class="text-xs font-semibold uppercase tracking-[0.2em] text-slate-400"
+              >
+                Built for makers
+              </p>
+              <p class="mt-3 text-sm text-slate-600">
+                {name} bundles lightweight utilities so you can focus on teaching,
+                not tooling.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="tools" class="border-t border-slate-100 bg-white">
+      <div class="mx-auto w-full max-w-6xl px-6 py-16">
+        <div
+          class="flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between"
+        >
+          <div class="space-y-3">
+            <p
+              class="text-xs font-semibold uppercase tracking-[0.2em] text-slate-400"
+            >
+              Core tools
+            </p>
+            <h2 class="text-3xl font-semibold text-slate-900">
+              Everything you need to ship tutorials faster
+            </h2>
+          </div>
+          <a
+            class="text-sm font-semibold text-slate-700 transition hover:text-slate-900"
+            href={socials.x}
+            target="_blank"
+            rel="noopener"
+          >
+            Follow updates →
+          </a>
+        </div>
+        <div class="mt-10 grid gap-6 md:grid-cols-3">
+          {
+            tools.map((tool) => (
+              <article class="rounded-2xl border border-slate-100 p-6 shadow-sm">
+                <div class="flex items-start justify-between gap-4">
+                  <h3 class="text-lg font-semibold text-slate-900">
+                    {tool.name}
+                  </h3>
+                </div>
+                <p class="mt-3 text-sm text-slate-600">{tool.description}</p>
+                {tool.status === "available" && tool.href ? (
+                  <a
+                    href={tool.href}
+                    class="mt-4 inline-flex text-sm font-semibold text-slate-700 transition hover:text-slate-900"
+                  >
+                    Open tool →
+                  </a>
+                ) : (
+                  <span class="mt-4 inline-flex text-sm font-semibold text-slate-400">
+                    Launching soon
+                  </span>
+                )}
+              </article>
+            ))
+          }
+        </div>
+      </div>
+    </section>
+
+    <section class="border-t border-slate-100 bg-slate-50">
+      <div class="mx-auto w-full max-w-6xl px-6 py-16">
+        <div class="grid gap-10 lg:grid-cols-2 lg:items-center">
+          <div class="space-y-4">
+            <p
+              class="text-xs font-semibold uppercase tracking-[0.2em] text-slate-400"
+            >
+              Why {name}
+            </p>
+            <h2 class="text-3xl font-semibold text-slate-900">
+              A professional toolkit that stays out of your way
+            </h2>
+            <p class="text-sm leading-7 text-slate-600">
+              Minimal, focused utilities let you craft tutorials with clarity.
+              No bloat, no extra tabs—just the essentials designed for
+              developers who teach.
+            </p>
+          </div>
+          <div class="grid gap-4 sm:grid-cols-2">
+            <div class="rounded-2xl border border-slate-200 bg-white p-5">
+              <p class="text-sm font-semibold text-slate-900">Fast setup</p>
+              <p class="mt-2 text-sm text-slate-600">
+                Launch a workflow in minutes with clean defaults.
+              </p>
+            </div>
+            <div class="rounded-2xl border border-slate-200 bg-white p-5">
+              <p class="text-sm font-semibold text-slate-900">
+                Consistent output
+              </p>
+              <p class="mt-2 text-sm text-slate-600">
+                Keep every asset aligned across your entire series.
+              </p>
+            </div>
+            <div class="rounded-2xl border border-slate-200 bg-white p-5">
+              <p class="text-sm font-semibold text-slate-900">Focused flow</p>
+              <p class="mt-2 text-sm text-slate-600">
+                Reduce context switching with unified utilities.
+              </p>
+            </div>
+            <div class="rounded-2xl border border-slate-200 bg-white p-5">
+              <p class="text-sm font-semibold text-slate-900">
+                Built for teams
+              </p>
+              <p class="mt-2 text-sm text-slate-600">
+                Share predictable assets with collaborators.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="border-t border-slate-100 bg-white">
+      <div
+        class="mx-auto flex w-full max-w-6xl flex-col items-center gap-6 px-6 py-16 text-center"
+      >
+        <p
+          class="text-xs font-semibold uppercase tracking-[0.2em] text-slate-400"
+        >
+          Ready to start
+        </p>
+        <h2 class="text-3xl font-semibold text-slate-900">
+          Build your next tutorial with confidence
+        </h2>
+        <p class="max-w-2xl text-sm leading-7 text-slate-600">
+          Keep your process simple, your visuals consistent, and your lessons
+          clear with {name}.
+        </p>
+        <div class="flex flex-col gap-3 sm:flex-row">
+          <a
+            class="inline-flex items-center justify-center rounded-full bg-slate-900 px-6 py-3 text-sm font-semibold text-white transition hover:bg-slate-800"
+            href={socials.linkedin}
+            target="_blank"
+            rel="noopener"
+          >
+            Connect on LinkedIn
+          </a>
+          <a
+            class="inline-flex items-center justify-center rounded-full border border-slate-200 px-6 py-3 text-sm font-semibold text-slate-700 transition hover:border-slate-300 hover:text-slate-900"
+            href={socials.x}
+            target="_blank"
+            rel="noopener"
+          >
+            Follow on X
+          </a>
+        </div>
+      </div>
+    </section>
+  </main>
+</Layout>
