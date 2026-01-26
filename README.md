@@ -1,3 +1,5 @@
+![Torialess Open Graph](public/opengraph.png)
+
 # Torialess
 
 Torialess is a curated, open-source hub of focused tools for content creators. The goal is to provide fast, friendly, and practical utilities that help creators get work done without distractions. More tools are in active development, and we welcome new ideas to make this the best go-to toolkit for creators.
