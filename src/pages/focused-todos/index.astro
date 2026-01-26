@@ -1,0 +1,13 @@
+---
+import Layout from "@/layouts/layout.astro";
+import { FocusedTodos } from "./_components/focused-todos";
+---
+
+<Layout
+  title="Focused Todos"
+  description="Manage your tasks efficiently with a clean and minimalistic focused todo list."
+  keywords="todos, focused, tasks, minimalistic, productivity"
+  lonely
+>
+  <FocusedTodos client:only="react" />
+</Layout>
