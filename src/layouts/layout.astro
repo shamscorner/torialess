@@ -7,6 +7,7 @@ import Analytics from "@components/analytics/analytics.astro";
 import NoScripts from "@components/analytics/no-scripts.astro";
 import Footer from "@/components/footer.astro";
 import Navbar from "@/components/navbar.astro";
+import VercelAnalytics from "@vercel/analytics/astro";
 
 interface Props {
   title?: string;
@@ -46,5 +47,7 @@ const { title, description, keywords, image, lonely = false } = Astro.props;
         content-visibility: auto;
       }
     </style>
+
+    <VercelAnalytics />
   </body>
 </html>
