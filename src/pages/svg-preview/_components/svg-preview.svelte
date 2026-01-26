@@ -14,7 +14,7 @@
   } from "@lucide/svelte";
 
   let svgContent = $state("");
-  let bgColor = $state("#111827");
+  let bgColor = $state("#171717");
   let isPanelOpen = $state(true);
   let dragActive = $state(false);
   let error = $state<string | null>(null);
@@ -337,7 +337,7 @@
             <input
               type="text"
               bind:value={bgColor}
-              placeholder="#111827"
+              placeholder="#171717"
               class="w-full bg-gray-800 border border-gray-700 rounded-lg p-3 pl-10 text-sm text-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-transparent font-mono"
             />
             <div
@@ -355,7 +355,7 @@
         <div class="flex gap-2 text-xs text-gray-500 flex-wrap">
           <span>Presets:</span>
           <button
-            onclick={() => (bgColor = "#111827")}
+            onclick={() => (bgColor = "#171717")}
             class="hover:text-blue-400 underline">Dark</button
           >
           <button
