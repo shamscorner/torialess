@@ -54,4 +54,4 @@ All commands are run from the root of the project:
 
 ## 📄 License
 
-MIT
+[MIT](LICENSE)
