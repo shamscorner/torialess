@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef, type FC, forwardRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Plus, Trash2, Check, RotateCcw } from "lucide-react";
+import { cn } from "@/lib/utils";
 
 // --- Types ---
 interface TodoItem {
@@ -117,19 +118,20 @@ const TodoItem = forwardRef<HTMLDivElement, TodoItemProps>(
         <div
           onMouseEnter={() => setIsHovered(true)}
           onMouseLeave={() => setIsHovered(false)}
-          className={`
-          relative group
-          flex items-center gap-4 py-4 px-6 rounded-2xl transition-all duration-300
-          ${isHovered ? "bg-white/5" : "bg-transparent"}
-        `}
+          className={cn(
+            "relative group flex items-center gap-4 py-4 px-6 rounded-2xl transition-all duration-300",
+            isHovered ? "bg-white/5" : "bg-transparent",
+          )}
         >
           {/* Checkmark Circle */}
           <button
             onClick={() => onToggle(todo.id)}
-            className={`
-            w-6 h-6 rounded-full border-2 flex items-center justify-center transition-all duration-500 flex-shrink-0
-            ${todo.completed ? "bg-white border-white" : "border-white/20 hover:border-white/50"}
-          `}
+            className={cn(
+              "w-6 h-6 rounded-full border-2 flex items-center justify-center transition-all duration-500 shrink-0",
+              todo.completed
+                ? "bg-white border-white"
+                : "border-white/20 hover:border-white/50",
+            )}
           >
             {todo.completed && (
               <Check size={14} className="text-black stroke-[4px]" />
@@ -151,10 +153,15 @@ const TodoItem = forwardRef<HTMLDivElement, TodoItemProps>(
             ) : (
               <p
                 onClick={() => setIsEditing(true)}
-                className={`
-                text-xl md:text-2xl font-medium truncate transition-all duration-500 cursor-text
-                ${todo.completed ? "text-white/20 line-through" : `text-white/80 group-hover:${depth > 0 ? "text-yellow-400" : "text-orange-400"}`}
-              `}
+                className={cn(
+                  "text-xl md:text-2xl font-medium truncate transition-all duration-500 cursor-text",
+                  todo.completed
+                    ? "text-white/20 line-through"
+                    : "text-white/80",
+                  !todo.completed && depth > 0
+                    ? "group-hover:text-yellow-400"
+                    : "group-hover:text-orange-400",
+                )}
               >
                 {todo.text}
               </p>
@@ -163,10 +170,10 @@ const TodoItem = forwardRef<HTMLDivElement, TodoItemProps>(
 
           {/* Actions (Subtle Far Right) */}
           <div
-            className={`
-          flex items-center gap-3 transition-opacity duration-300 flex-shrink-0
-          ${isHovered ? "opacity-100" : "opacity-0"}
-        `}
+            className={cn(
+              "flex items-center gap-3 transition-opacity duration-300 shrink-0",
+              isHovered ? "opacity-100" : "opacity-0",
+            )}
           >
             <button
               onClick={() => onAddSub(todo.id)}
@@ -188,7 +195,7 @@ const TodoItem = forwardRef<HTMLDivElement, TodoItemProps>(
         {/* Recursive Children - Rendered OUTSIDE the hoverable div above */}
         {todo.children && todo.children.length > 0 && (
           <div className="relative mt-1">
-            <div className="absolute left-[1.75rem] top-0 bottom-4 w-px bg-white/5" />
+            <div className="absolute left-7 top-0 bottom-4 w-px bg-white/5" />
             <AnimatePresence mode="popLayout">
               {todo.children.map((child) => (
                 <TodoItem
@@ -306,7 +313,7 @@ export const FocusedTodos: FC = () => {
             >
               <RotateCcw
                 size={14}
-                className="group-hover:rotate-[-45deg] transition-transform duration-500"
+                className="group-hover:-rotate-45 transition-transform duration-500"
               />
               Reset Workspace
             </button>
@@ -341,7 +348,7 @@ export const FocusedTodos: FC = () => {
       {/* Main Container */}
       <main className="max-w-3xl mx-auto pt-32 pb-64 px-6 min-h-screen flex flex-col">
         {/* Sticky Editable Title */}
-        <div className="sticky top-0 bg-[#0a0a0a]/80 backdrop-blur-md z-40 pt-4 pb-6 mb-12 border-b border-white/5">
+        <div className="sticky top-0 bg-[#0a0a0a]/80 backdrop-blur-md z-40 pt-4 pb-6 mb-6 border-b border-white/5">
           <input
             type="text"
             value={title}
@@ -352,7 +359,7 @@ export const FocusedTodos: FC = () => {
         </div>
 
         {/* New Item Input Area */}
-        <div className="mb-16 group">
+        <div className="mb-8 group">
           <input
             type="text"
             value={inputValue}
@@ -361,7 +368,7 @@ export const FocusedTodos: FC = () => {
             placeholder="Type something and press Enter..."
             className="w-full bg-transparent border-none text-2xl md:text-3xl font-medium placeholder:text-white/10 focus:ring-0 focus:outline-none transition-all"
           />
-          <div className="h-px w-0 group-focus-within:w-full bg-gradient-to-r from-white/20 to-transparent transition-all duration-700" />
+          <div className="h-px w-0 group-focus-within:w-full bg-linear-to-r from-white/20 to-transparent transition-all duration-700" />
         </div>
 
         {/* List Content */}

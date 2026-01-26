@@ -23,11 +23,13 @@
     "astro-robots-txt": "^1.0.0",
     "astro-seo": "^1.1.0",
     "astro-webmanifest": "^1.0.0",
+    "clsx": "^2.1.1",
     "framer-motion": "^12.29.2",
     "lucide-react": "^0.563.0",
     "react": "^19.2.3",
     "react-dom": "^19.2.3",
     "svelte": "^5.48.2",
+    "tailwind-merge": "^3.4.0",
     "tailwindcss": "^4.1.18",
     "typescript": "^5.9.3"
   }
