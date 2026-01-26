@@ -1,23 +1,50 @@
-<!doctype html>
-<html lang="en">
-	<head>
-		<meta charset="UTF-8" />
-		<meta name="viewport" content="width=device-width" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="icon" href="/favicon.ico" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro Basics</title>
-	</head>
-	<body>
-		<slot />
-	</body>
-</html>
+---
+import Seo from "@components/seo.astro";
 
-<style>
-	html,
-	body {
-		margin: 0;
-		width: 100%;
-		height: 100%;
-	}
-</style>
+import "../styles/global.css";
+
+import Analytics from "@components/analytics/analytics.astro";
+import NoScripts from "@components/analytics/no-scripts.astro";
+import Footer from "@/components/footer.astro";
+import Navbar from "@/components/navbar.astro";
+
+interface Props {
+  title?: string;
+  description?: string;
+  keywords?: string;
+  image?: string;
+  lonely?: boolean;
+}
+
+const { title, description, keywords, image, lonely = false } = Astro.props;
+---
+
+<!doctype html>
+<html lang="en" dir="ltr">
+  <head>
+    <Seo
+      title={title}
+      description={description}
+      keywords={keywords}
+      image={image}
+    />
+    <Analytics />
+  </head>
+  <body>
+    <NoScripts />
+
+    <div class="grid min-h-full grid-rows-[auto_1fr_auto]">
+      {!lonely && <Navbar />}
+      <slot />
+      {!lonely && <Footer />}
+    </div>
+
+    <style is:global>
+      /* Improve Page speed */
+      /* https://css-tricks.com/almanac/properties/c/content-visibility/ */
+      img {
+        content-visibility: auto;
+      }
+    </style>
+  </body>
+</html>

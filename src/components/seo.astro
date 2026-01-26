@@ -1,0 +1,142 @@
+---
+import { SEO } from "astro-seo";
+import { companyInfo, productInfo } from "@/constants";
+
+interface Props {
+  title?: string;
+  description?: string;
+  keywords?: string;
+  image?: string;
+}
+
+const { title, description, keywords, image } = Astro.props;
+
+const makeTitle = title ? `${title} | ${productInfo.name}` : productInfo.title;
+
+const resolvedDescription = description ?? productInfo.description;
+const resolvedKeywords = keywords ?? productInfo.keywords;
+
+const siteBaseUrl = Astro.site ?? new URL(productInfo.domain);
+
+const canonicalURL = new URL(Astro.url.pathname, siteBaseUrl).toString();
+
+const resolvedImageWithDomain = image
+  ? new URL(image, siteBaseUrl).toString()
+  : new URL("/opengraph.png", siteBaseUrl).toString();
+
+const organizationId = `${companyInfo.domain}#organization`;
+const websiteId = `${productInfo.domain}#website`;
+const productId = `${productInfo.domain}#product`;
+const socialProfiles = [
+  companyInfo.contactFacebook,
+  companyInfo.contactX,
+  companyInfo.contactLinkedin,
+  companyInfo.contactYoutube,
+].filter((profile): profile is string => Boolean(profile));
+
+const structuredData = [
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "@id": organizationId,
+    name: companyInfo.name,
+    url: companyInfo.domain,
+    logo: resolvedImageWithDomain,
+    sameAs: socialProfiles,
+    contactPoint: [
+      {
+        "@type": "ContactPoint",
+        email: companyInfo.contactEmail,
+        telephone: companyInfo.contactPhone,
+        contactType: "customer support",
+        areaServed: "US",
+        availableLanguage: ["en"],
+      },
+    ],
+    address: { "@type": "PostalAddress", ...companyInfo.postalAddress },
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "@id": websiteId,
+    url: productInfo.domain,
+    name: productInfo.title,
+    description: productInfo.description,
+    publisher: { "@id": organizationId },
+    inLanguage: "en-US",
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "Product",
+    "@id": productId,
+    name: productInfo.name,
+    description: productInfo.description,
+    image: resolvedImageWithDomain,
+    brand: { "@type": "Organization", "@id": organizationId },
+    url: productInfo.domain,
+    offers: {
+      "@type": "Offer",
+      priceCurrency: "USD",
+      price: "0.00",
+      availability: "https://schema.org/InStock",
+      url: productInfo.domain,
+    },
+  },
+];
+---
+
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta http-equiv="Permissions-Policy" content="interest-cohort=()" />
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<meta name="generator" content={Astro.generator} />
+
+<SEO
+  title={makeTitle}
+  description={resolvedDescription}
+  canonical={canonicalURL}
+  twitter={{
+    title: makeTitle,
+    description: resolvedDescription,
+    image: resolvedImageWithDomain,
+    imageAlt: productInfo.name,
+    card: "summary_large_image",
+    site: productInfo.twitterHandle,
+    creator: productInfo.twitterHandle,
+  }}
+  openGraph={{
+    basic: {
+      url: canonicalURL,
+      type: "website",
+      title: makeTitle,
+      image: resolvedImageWithDomain,
+    },
+    optional: {
+      description: resolvedDescription,
+    },
+    image: {
+      url: resolvedImageWithDomain,
+      alt: productInfo.name,
+      type: "image/png",
+    },
+  }}
+  extend={{
+    meta: [
+      { name: "keywords", content: resolvedKeywords },
+      { name: "author", content: companyInfo.name },
+      { name: "application-name", content: productInfo.name },
+      { name: "apple-mobile-web-app-title", content: productInfo.name },
+      { name: "msapplication-TileColor", content: "#171717" },
+    ],
+  }}
+/>
+
+{
+  structuredData.length > 0 && (
+    <script
+      type="application/ld+json"
+      set:html={JSON.stringify(structuredData)}
+      is:inline
+    />
+  )
+}

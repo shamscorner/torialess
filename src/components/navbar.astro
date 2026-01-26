@@ -1,0 +1,147 @@
+---
+const items = [
+  {
+    name: "About Us",
+    link: "https://www.shamscorner.com",
+  },
+  {
+    name: "Contact",
+    link: "https://www.shamscorner.com#contact",
+  },
+];
+---
+
+<script is:inline type="module" async>
+  function openNavbar() {
+    document
+      .getElementById("container-mobile-menu")
+      ?.classList.remove("hidden");
+    document
+      .getElementById("container-mobile-menu-backdrop")
+      ?.classList.remove("hidden");
+  }
+
+  function closeNavbar() {
+    document.getElementById("container-mobile-menu")?.classList.add("hidden");
+    document
+      .getElementById("container-mobile-menu-backdrop")
+      ?.classList.add("hidden");
+  }
+
+  const buttonOpen = document.getElementById("button-open-navbar");
+  const buttonClose = document.getElementById("button-close-navbar");
+
+  if (buttonOpen) {
+    buttonOpen.addEventListener("click", openNavbar);
+  }
+
+  if (buttonClose) {
+    buttonClose.addEventListener("click", closeNavbar);
+  }
+
+  document.querySelectorAll(".navbar-item").forEach((item) => {
+    item.addEventListener("click", closeNavbar);
+  });
+</script>
+
+<header
+  class="bg-background sticky top-0 z-40 h-14 border-b border-b-stone-100"
+  aria-labelledby="header-heading"
+>
+  <h2 id="header-heading" class="sr-only">Main navigation</h2>
+  <nav
+    class="flex items-center justify-between gap-x-6 px-5 pt-3 pb-2.5"
+    aria-label="Global"
+  >
+    <div class="flex items-center gap-6 lg:flex-1">
+      <a href="/" class="-m-1.5 p-1.5 text-lg font-semibold"> Torialess </a>
+    </div>
+    <div class="hidden lg:flex lg:items-center lg:gap-x-8">
+      {
+        items.map((item) => (
+          <a
+            href={item.link}
+            class="group hover:text-primary relative block overflow-hidden pb-1 text-sm leading-6 mt-0.5"
+          >
+            {item.name}
+            <span class="border-primary absolute right-0 bottom-0 left-0 block -translate-x-full border-b-2 transition-transform delay-100 duration-300 group-hover:translate-x-0" />
+          </a>
+        ))
+      }
+    </div>
+    <div class="flex items-center gap-5 lg:hidden">
+      <button
+        id="button-open-navbar"
+        type="button"
+        class="text-muted-foreground -m-2.5 inline-flex items-center justify-center rounded-md p-2.5"
+      >
+        <span class="sr-only">Open menu</span>
+        <svg
+          class="h-6 w-6"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke-width="1.5"
+          stroke="currentColor"
+          aria-hidden="true"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"></path>
+        </svg>
+      </button>
+    </div>
+  </nav>
+  <!-- Mobile menu, show/hide based on menu open state. -->
+  <div class="lg:hidden" role="dialog" aria-modal="true">
+    <div
+      id="container-mobile-menu-backdrop"
+      class="fixed inset-0 z-10 hidden backdrop-blur-xs"
+    >
+    </div>
+    <div
+      id="container-mobile-menu"
+      class="bg-background fixed inset-y-0 right-0 z-10 hidden w-full overflow-y-auto px-6 py-6 shadow-sm sm:max-w-sm"
+    >
+      <div class="flex items-center justify-between gap-x-6">
+        Torialess
+        <button
+          id="button-close-navbar"
+          type="button"
+          class="text-muted-foreground -m-2.5 rounded-md p-2.5"
+        >
+          <span class="sr-only">Close menu</span>
+          <svg
+            class="h-6 w-6"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke-width="1.5"
+            stroke="currentColor"
+            aria-hidden="true"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M6 18L18 6M6 6l12 12"></path>
+          </svg>
+        </button>
+      </div>
+      <div class="mt-6 flow-root">
+        <div class="divide-primary -my-6 divide-y">
+          <div class="flex flex-col gap-y-2 py-6">
+            {
+              items.map((item) => (
+                <a
+                  href={item.link}
+                  class="navbar-item hover:bg-primary/5 -mx-3 block rounded-lg px-3 py-2 text-base leading-7 font-semibold"
+                >
+                  {item.name}
+                </a>
+              ))
+            }
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>

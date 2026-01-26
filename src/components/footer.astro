@@ -1,0 +1,89 @@
+---
+import { productInfo } from "@/constants";
+
+const items = [
+  { name: "About Us", link: "https://www.shamscorner.com" },
+  { name: "Contact", link: "https://www.shamscorner.com#contact" },
+];
+---
+
+<footer class="bg-muted text-foreground" aria-labelledby="footer-heading">
+  <div class="mx-auto max-w-7xl overflow-hidden px-6 py-20 sm:py-24 lg:px-8">
+    <nav
+      class="-mb-6 flex flex-wrap justify-center gap-x-12 gap-y-3 text-sm/6"
+      aria-label="Footer"
+    >
+      {
+        items.map((item) => (
+          <a
+            href={item.link}
+            class="transition-all text-foreground hover:text-primary no-underline text-sm font-normal"
+          >
+            {item.name}
+          </a>
+        ))
+      }
+    </nav>
+    <div class="mt-16 flex justify-center gap-x-10">
+      <a
+        href={productInfo.socials.x}
+        target="_blank"
+        rel="noopener noreferrer"
+        class="text-foreground hover:text-primary"
+      >
+        <span class="sr-only">X</span>
+        <svg
+          class="size-6"
+          fill="currentColor"
+          viewBox="0 0 24 24"
+          aria-hidden="true"
+        >
+          <path
+            d="M13.6823 10.6218L20.2391 3H18.6854L12.9921 9.61788L8.44486 3H3.2002L10.0765 13.0074L3.2002 21H4.75404L10.7663 14.0113L15.5685 21H20.8131L13.6819 10.6218H13.6823ZM11.5541 13.0956L10.8574 12.0991L5.31391 4.16971H7.70053L12.1742 10.5689L12.8709 11.5655L18.6861 19.8835H16.2995L11.5541 13.096V13.0956Z"
+          ></path>
+        </svg>
+      </a>
+      <a
+        href={productInfo.socials.youtube}
+        target="_blank"
+        rel="noopener noreferrer"
+        class="text-foreground hover:text-primary"
+      >
+        <span class="sr-only">YouTube</span>
+        <svg
+          class="size-6"
+          fill="currentColor"
+          viewBox="0 0 24 24"
+          aria-hidden="true"
+        >
+          <path
+            fill-rule="evenodd"
+            d="M19.812 5.418c.861.23 1.538.907 1.768 1.768C21.998 8.746 22 12 22 12s0 3.255-.418 4.814a2.504 2.504 0 0 1-1.768 1.768c-1.56.419-7.814.419-7.814.419s-6.255 0-7.814-.419a2.505 2.505 0 0 1-1.768-1.768C2 15.255 2 12 2 12s0-3.255.417-4.814a2.507 2.507 0 0 1 1.768-1.768C5.744 5 11.998 5 11.998 5s6.255 0 7.814.418ZM15.194 12 10 15V9l5.194 3Z"
+            clip-rule="evenodd"></path>
+        </svg>
+      </a>
+      <a
+        href={productInfo.socials.linkedin}
+        target="_blank"
+        rel="noopener noreferrer"
+        class="text-foreground hover:text-primary"
+      >
+        <span class="sr-only">LinkedIn</span>
+        <svg
+          class="size-6"
+          fill="currentColor"
+          viewBox="0 0 24 24"
+          aria-hidden="true"
+        >
+          <path
+            d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.761 0 5-2.239 5-5v-14c0-2.761-2.239-5-5-5zm-11 19h-3v-10h3v10zm-1.5-11.268c-.966 0-1.75-.784-1.75-1.75s.784-1.75 1.75-1.75 1.75.784 1.75 1.75-.784 1.75-1.75 1.75zm13.5 11.268h-3v-5.604c0-1.337-.026-3.063-1.868-3.063-1.868 0-2.156 1.459-2.156 2.967v5.7h-3v-10h2.881v1.367h.041c.401-.761 1.381-1.563 2.841-1.563 3.039 0 3.601 2.002 3.601 4.604v5.592z"
+          ></path>
+        </svg>
+      </a>
+    </div>
+    <p class="mt-10 text-center text-sm/6 text-muted-foreground">
+      © {`${new Date().getFullYear()} - ${productInfo.name}`}. All rights
+      reserved.
+    </p>
+  </div>
+</footer>

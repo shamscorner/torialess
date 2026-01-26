@@ -1,0 +1,7 @@
+---
+import Clarity from "./clarity.astro";
+import GoogleTagManager from "./google-tag-manager.astro";
+---
+
+<GoogleTagManager id={import.meta.env.GTM_ID}/>
+<Clarity id={import.meta.env.CLARITY_ID}/>

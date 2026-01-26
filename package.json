@@ -9,6 +9,19 @@
     "astro": "astro"
   },
   "dependencies": {
-    "astro": "^5.16.15"
+    "@astrojs/cloudflare": "^12.6.12",
+    "@astrojs/partytown": "^2.1.4",
+    "@astrojs/react": "^4.4.2",
+    "@astrojs/sitemap": "^3.7.0",
+    "@astrojs/svelte": "^7.2.5",
+    "@lucide/svelte": "^0.563.1",
+    "@tailwindcss/vite": "^4.1.18",
+    "astro": "^5.16.15",
+    "astro-robots-txt": "^1.0.0",
+    "astro-seo": "^1.1.0",
+    "astro-webmanifest": "^1.0.0",
+    "svelte": "^5.48.2",
+    "tailwindcss": "^4.1.18",
+    "typescript": "^5.9.3"
   }
 }
