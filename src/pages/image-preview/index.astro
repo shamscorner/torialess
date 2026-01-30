@@ -1,0 +1,13 @@
+---
+import Layout from "../../layouts/layout.astro";
+import { ImagePreview } from "./_components/image-preview";
+---
+
+<Layout
+  title="Image Preview"
+  description="Upload and preview images with zoom, panning, and clean minimal interface."
+  keywords="image, preview, zoom, pan, upload, viewer"
+  lonely
+>
+  <ImagePreview client:only="react" />
+</Layout>
